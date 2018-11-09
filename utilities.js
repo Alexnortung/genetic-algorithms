@@ -204,10 +204,10 @@ const lines_intersect = (
      */
 
     num = b1 * c2 - b2 * c1;
-    const x = ( num < 0 ? num - offset : num + offset ) / denom;
+    const x = (( num < 0 ? num - offset : num + offset ) / denom) -0.5;
 
     num = a2 * c1 - a1 * c2;
-    const y = ( num < 0 ? num - offset : num + offset ) / denom;
+    const y = (( num < 0 ? num - offset : num + offset ) / denom) -0.5;
 
     //check if the point is part of the line segment
     if (valueBetweenOrEqueal(x, x1, x2) && valueBetweenOrEqueal(x, x3, x4)
