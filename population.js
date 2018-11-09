@@ -9,6 +9,7 @@ class Population {
       const dna = new DNA();
       dna.createRandomDNA(dnaLength);
       const organism = new Organism(dna, start.copy());
+      organism.i = i;
       this.organisms.push(organism);
 
     }

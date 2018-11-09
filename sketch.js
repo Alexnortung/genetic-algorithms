@@ -4,7 +4,7 @@ let start;
 let goal;
 const wallWidth = 5;
 const dnaLength = 20;
-const populationSize = 30;
+const populationSize = 1;
 
 function setup() {
   start = new Vector(20, 320);
@@ -14,9 +14,13 @@ function setup() {
   //create walls
   walls = [];
   let wallTop = new Wall(0,0, width, wallWidth);
+  wallTop.name = "top";
   let wallBot = new Wall(0,height-wallWidth, width, wallWidth);
+  wallBot.name = "bot";
   let wallRight = new Wall(width - wallWidth, wallWidth, wallWidth, height- (2*wallWidth));
+  wallRight.name = "right"
   let wallLeft = new Wall(0, wallWidth, wallWidth, height- (2*wallWidth));
+  wallLeft.name = "left";
   walls.push(wallTop, wallBot, wallRight, wallLeft);
 
   //create random population
@@ -35,7 +39,9 @@ function draw() {
 
   //draw organisms
   population.organisms.forEach((organism) => {
+    organism.update();
     organism.draw();
+
   });
 
 }

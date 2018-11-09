@@ -140,7 +140,7 @@ const lines_intersect = (
      * is "a1 x  +  b1 y  +  c1  =  0".
      */
     const returnObj = {
-      intersect = DONT_INTERSECT
+      intersect: DONT_INTERSECT
     }
 
     a1 = y2 - y1;
@@ -208,6 +208,15 @@ const lines_intersect = (
 
     num = a2 * c1 - a1 * c2;
     const y = ( num < 0 ? num - offset : num + offset ) / denom;
+
+    //check if the point is part of the line segment
+    if (valueBetweenOrEqueal(x, x1, x2) && valueBetweenOrEqueal(x, x3, x4)
+      && valueBetweenOrEqueal(y, y1,y2) && valueBetweenOrEqueal(y, y3, y4)
+  ) {
+      returnObj.partOfBoth = true;
+    } else {
+      returnObj.partOfBoth = false;
+    }
 
     returnObj.intersect = DO_INTERSECT;
     returnObj.x = x;
