@@ -2,7 +2,9 @@ class Organism {
   constructor(dna, pos) {
     this.dna = dna;
     this.position = pos;
-    this.velocity = new Vector(1,0);
+    this.velocity = new Vector(4,0);
+
+    this.neuralNetwork = new NeuralNet(6, [6,3,3], 1, dna);
 
 
   }
@@ -10,8 +12,10 @@ class Organism {
   turn(value){
     //value between -1 and 1
     //1 = 5 degree
-    let dir = this.velocity.getDirection += (value*0.1);
+    // console.log(this.velocity, value);
+    let dir = this.velocity.getDirection() + (radians(value * 5));
     this.velocity.setDirection(dir);
+    // console.log(this.velocity, value);
 
 
   }
@@ -144,31 +148,39 @@ class Organism {
     let distanceToGoal = this.position.subtract(goal).getMagnitude();
 
     // console.log(shortestDistanceLeft, shortestDistanceFront, shortestDistanceRight);
+    // console.log(this);
+    this.neuralNet(shortestDistanceLeft,
+      shortestDistanceFront,
+      shortestDistanceRight,
+      shortestDistanceFrontLeft,
+      shortestDistanceFrontRight,
+      distanceToGoal);
 
     if (this.i == 0) {
       // console.log(frontIntersections);
 
     }
 
-
-
-
     //calculate turn
+    // console.log(this.neuralNetwork.getOutput());
+    const nnoutput = this.neuralNetwork.getOutput()[0].getOutput();
+    this.turn((nnoutput - 0.5) *2)
+
+    //move organism
+    this.position.addTo(this.velocity);
 
   }
 
 
-  neuralNet(dF,dR,dL,dFR,dRL,dG){
-    // synapse layer 1 from input 1 = dna[neurons.length + {0 - 5 (6)}]
-    const neurons = 12
-    //layer 1 synapses
-    for (var i = neurons; i < neurons + (6*6); i++) {
-      
-    }
+  neuralNet(...distances){
+    this.neuralNetwork.calculateInputs(distances);
   }
 
 
   draw(){
-    ellipse(this.position.x, this.position.y, 2);
+    push();
+    fill(color(0,0,0,0));
+    ellipse(this.position.x, this.position.y, 4);
+    pop()
   }
 }

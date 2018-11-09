@@ -4,7 +4,7 @@ let start;
 let goal;
 const wallWidth = 5;
 const dnaLength = 20;
-const populationSize = 1;
+const populationSize = 30;
 
 function setup() {
   start = new Vector(20, 320);
