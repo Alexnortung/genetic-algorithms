@@ -223,3 +223,7 @@ const lines_intersect = (
     returnObj.y = y;
     return  returnObj;
 } /* lines_intersect */
+
+function sigmoid(t) {
+    return 1/(1+Math.pow(Math.E, -t));
+}
