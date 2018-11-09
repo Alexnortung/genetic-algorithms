@@ -129,9 +129,9 @@ const lines_intersect = (
   x3, y3,   /* Second line segment */
   x4, y4
   ) => {
-    const	DONT_INTERSECT    0
-    const	DO_INTERSECT      1
-    const COLLINEAR         2
+    const	DONT_INTERSECT =  0
+    const	DO_INTERSECT =    1
+    const COLLINEAR =       2
     let a1, a2, b1, b2, c1, c2; /* Coefficients of line eqns. */
     let r1, r2, r3, r4;         /* 'Sign' values */
     let denom, offset, num;     /* Intermediate values */
@@ -139,6 +139,9 @@ const lines_intersect = (
     /* Compute a1, b1, c1, where line joining points 1 and 2
      * is "a1 x  +  b1 y  +  c1  =  0".
      */
+    const returnObj = {
+      intersect = DONT_INTERSECT
+    }
 
     a1 = y2 - y1;
     b1 = x1 - x2;
@@ -157,8 +160,10 @@ const lines_intersect = (
 
     if ( r3 != 0 &&
          r4 != 0 &&
-         SAME_SIGNS( r3, r4 ))
-        return  DONT_INTERSECT ;
+         SAME_SIGNS( r3, r4 )){
+           returnObj.intersect = DONT_INTERSECT
+           return returnObj  ;
+         }
 
     /* Compute a2, b2, c2 */
 
@@ -178,15 +183,19 @@ const lines_intersect = (
 
     if ( r1 != 0 &&
          r2 != 0 &&
-         SAME_SIGNS( r1, r2 ))
-        return  DONT_INTERSECT ;
+         SAME_SIGNS( r1, r2 )){
+           returnObj.intersect = DONT_INTERSECT
+           return returnObj  ;
+         }
 
     /* Line segments intersect: compute intersection point.
      */
 
     denom = a1 * b2 - a2 * b1;
-    if ( denom == 0 )
-        return  COLLINEAR ;
+    if ( denom == 0 ){
+      returnObj.intersect = COLLINEAR;
+      return returnObj;
+    }
     offset = denom < 0 ? - denom / 2 : denom / 2;
 
     /* The denom/2 is to get rounding instead of truncating.  It
@@ -200,5 +209,8 @@ const lines_intersect = (
     num = a2 * c1 - a1 * c2;
     const y = ( num < 0 ? num - offset : num + offset ) / denom;
 
-    return  DO_INTERSECT;
-    } /* lines_intersect */
+    returnObj.intersect = DO_INTERSECT;
+    returnObj.x = x;
+    returnObj.y = y;
+    return  returnObj;
+} /* lines_intersect */
