@@ -82,7 +82,31 @@ class NeuralNet {
 
   }
 
-  calculateInputs(inputs){
+  clearNeuronValues(){
+    for (var i = 0; i < this.neuronLayers.length; i++) {
+      for (var j = 0; j < this.neuronLayers[i].length; j++) {
+        const cNeuron = this.neuronLayers[i][j];
+        cNeuron.resetValue();
+      }
 
+    }
   }
+
+  calculateInputs(inputs){
+    this.clearNeuronValues();
+    for (var i = 0; i < this.inputNeurons.length; i++) {
+      if (i >= inputs.length) {
+        break;
+      }
+      this.inputNeurons[i].addValue(inputs[i]);
+    }
+
+    for (var i = 0; i < this.synapseLayers.length; i++) {
+      for (var j = 0; j < this.synapseLayers[i].length; j++) {
+        this.synapseLayers[i][j].calculateAndSend();
+      }
+    }
+    console.log(this.outputNeurons);
+  }
+
 }

@@ -8,6 +8,10 @@ class Neuron {
     this.currentValue += v;
   }
 
+  resetValue(){
+    this.currentValue = 0;
+  }
+
   getOutput(){
     return this.multiplier * this.currentValue;
   }

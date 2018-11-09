@@ -5,5 +5,9 @@ class Synapse {
     this.outputNeuron = outputNeuron;
   }
 
-  
+  calculateAndSend(){
+    const inputVal = this.inputNeuron.getOutput();
+    this.outputNeuron.addValue(inputVal * this.multiplier);
+  }
+
 }
