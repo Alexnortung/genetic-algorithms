@@ -1,10 +1,14 @@
 class Organism {
-  constructor(dna, pos) {
+  constructor(dna) {
     this.dna = dna;
-    this.position = pos;
+    this.position = start.copy();
     this.velocity = new Vector(4,0);
+    this.won = false;
+    this.ticks = 0;
 
     this.neuralNetwork = new NeuralNet(6, [6,3,3], 1, dna);
+
+    this.isDead = false;
 
 
   }
@@ -13,7 +17,7 @@ class Organism {
     //value between -1 and 1
     //1 = 5 degree
     // console.log(this.velocity, value);
-    let dir = this.velocity.getDirection() + (radians(value * 5));
+    let dir = this.velocity.getDirection() + (radians(value * 25));
     this.velocity.setDirection(dir);
     // console.log(this.velocity, value);
 
@@ -21,6 +25,9 @@ class Organism {
   }
 
   update() {
+    if (this.isDead) {
+      return ;
+    }
     // calculate distances to walls
     // front; velocity
     const frontVector = this.velocity.copy();
@@ -168,6 +175,17 @@ class Organism {
 
     //move organism
     this.position.addTo(this.velocity);
+    if (positionOverlapsWall(this.position)) {
+      // console.log(this, "died", this.score);
+      this.isDead = true;
+    }
+
+    if (distanceToGoal <= 15) {
+      this.isDead = true;
+      this.won = true;
+      // console.log(this.score);
+    }
+    this.ticks++;
 
   }
 
@@ -176,11 +194,25 @@ class Organism {
     this.neuralNetwork.calculateInputs(distances);
   }
 
+  kill() {
+    this.isDead = true;
+  }
+
+  get score() {
+    let currentscore =  10000 / (this.position.subtract(goal).getMagnitude() + 1);
+    if (this.won) {
+      currentscore+= 2000;
+      currentscore+=100000/(population.winenrs+1 );
+
+    }
+    return currentscore;
+  }
+
 
   draw(){
     push();
     fill(color(0,0,0,0));
-    ellipse(this.position.x, this.position.y, 4);
+    ellipse(this.position.x, this.position.y, 6);
     pop()
   }
 }
