@@ -35,6 +35,6 @@ class DNA {
 
 
   static createRandomGene(){
-    return random(-1,1);
+    return random(-255,255);
   }
 }

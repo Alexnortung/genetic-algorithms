@@ -202,7 +202,7 @@ class Organism {
     let currentscore =  10000 / (this.position.subtract(goal).getMagnitude() + 1);
     if (this.won) {
       currentscore+= 2000;
-      currentscore+=100000/(population.winenrs+1 );
+      currentscore+=15000/(population.winners+1 );
 
     }
     return currentscore;

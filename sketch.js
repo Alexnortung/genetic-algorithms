@@ -5,8 +5,8 @@ let goal;
 let nextGenButton;
 const wallWidth = 10;
 const dnaLength = 20;
-const populationSize = 300;
-const mutationRate = 0.02 ;
+const populationSize = 100;
+const mutationRate = 0.029 ;
 
 function setup() {
   createCanvas(500,300);
@@ -28,9 +28,9 @@ function setup() {
   wallLeft.name = "left";
   walls.push(wallTop, wallBot, wallRight, wallLeft);
 
-  // let middlewall = new Wall((width - wallWidth)/3, 0, wallWidth, height*2/3);
-  // let middlewall2 = new Wall((width - wallWidth)*2/3, height/3, wallWidth, height*2/3);
-  // walls.push(middlewall, middlewall2);
+  let middlewall = new Wall((width - wallWidth)/3, 0, wallWidth, height*2/3);
+  let middlewall2 = new Wall((width - wallWidth)*2/3, height/3, wallWidth, height*2/3);
+  walls.push(middlewall, middlewall2);
 
   //create random population
   population = new Population(populationSize);

@@ -59,6 +59,8 @@ class Population {
 
     }
 
+    nextGen.addOrganism(new Organism(this.bestOrganism.dna));
+
     //select two pieces of dna from the pool
     return nextGen;
 
