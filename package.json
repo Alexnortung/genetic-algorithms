@@ -1,0 +1,22 @@
+{
+  "name": "genetic-algorithms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexnortung/genetic-algorithms.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexnortung/genetic-algorithms/issues"
+  },
+  "homepage": "https://github.com/Alexnortung/genetic-algorithms#readme",
+  "dependencies": {
+    "p5": "^0.8.0"
+  }
+}
